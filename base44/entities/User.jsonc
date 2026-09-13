@@ -1,0 +1,26 @@
+{
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "restore_key_hash": {
+      "type": "string",
+      "description": "Offline SHA-256 hash of the user's unique restore key. The raw key is never stored."
+    },
+    "restore_key_created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the user's restore key was generated."
+    }
+  },
+  "required": [
+    "role"
+  ],
+  "name": "User",
+  "type": "object"
+}

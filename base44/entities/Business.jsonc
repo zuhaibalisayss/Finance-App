@@ -1,0 +1,59 @@
+{
+  "name": "Business",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Business Name"
+    },
+    "industry": {
+      "type": "string",
+      "title": "Industry"
+    },
+    "ownership_pct": {
+      "type": "number",
+      "default": 100,
+      "minimum": 0,
+      "maximum": 100,
+      "title": "Ownership %"
+    },
+    "initial_capital": {
+      "type": "number",
+      "default": 0,
+      "title": "Initial Capital Invested"
+    },
+    "estimated_value": {
+      "type": "number",
+      "default": 0,
+      "title": "Estimated Business Value"
+    },
+    "value_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Value As Of"
+    },
+    "currency": {
+      "type": "string",
+      "default": "PKR",
+      "title": "Currency"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

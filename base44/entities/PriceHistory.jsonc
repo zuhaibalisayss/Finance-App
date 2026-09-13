@@ -1,0 +1,45 @@
+{
+  "name": "PriceHistory",
+  "type": "object",
+  "properties": {
+    "investment_id": {
+      "type": "string",
+      "title": "Investment"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Date"
+    },
+    "price": {
+      "type": "number",
+      "default": 0,
+      "title": "Price"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "local_import"
+      ],
+      "default": "manual",
+      "title": "Source"
+    }
+  },
+  "required": [
+    "investment_id",
+    "date",
+    "price"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

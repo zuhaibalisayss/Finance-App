@@ -1,0 +1,82 @@
+{
+  "name": "Transaction",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Date / Time"
+    },
+    "account_id": {
+      "type": "string",
+      "title": "Account"
+    },
+    "to_account_id": {
+      "type": "string",
+      "title": "Transfer To Account"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "income",
+        "expense",
+        "transfer",
+        "investment_contribution",
+        "investment_withdrawal",
+        "dividend",
+        "interest",
+        "business_contribution",
+        "business_withdrawal",
+        "adjustment"
+      ],
+      "default": "expense",
+      "title": "Type"
+    },
+    "amount": {
+      "type": "number",
+      "title": "Amount"
+    },
+    "currency": {
+      "type": "string",
+      "default": "PKR",
+      "title": "Currency"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "reference": {
+      "type": "string",
+      "title": "Reference"
+    },
+    "linked_entity": {
+      "type": "string",
+      "title": "Linked Entity"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "date",
+    "account_id",
+    "type",
+    "amount"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "name": "Investment",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Investment Name"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "stock",
+        "bond",
+        "mutual_fund",
+        "etf",
+        "crypto",
+        "commodity",
+        "real_estate",
+        "reit",
+        "business",
+        "other"
+      ],
+      "default": "stock",
+      "title": "Asset Type"
+    },
+    "institution": {
+      "type": "string",
+      "title": "Institution / Provider"
+    },
+    "ticker": {
+      "type": "string",
+      "title": "Ticker / Symbol"
+    },
+    "exchange": {
+      "type": "string",
+      "title": "Exchange"
+    },
+    "fund_category": {
+      "type": "string",
+      "title": "Fund Category"
+    },
+    "purchase_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Purchase Date"
+    },
+    "currency": {
+      "type": "string",
+      "default": "PKR",
+      "title": "Currency"
+    },
+    "current_price": {
+      "type": "number",
+      "default": 0,
+      "title": "Current Price (Manual)"
+    },
+    "current_price_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Price Last Updated"
+    },
+    "price_source": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "local_import"
+      ],
+      "default": "manual",
+      "title": "Price Source"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "title": "Active"
+    }
+  },
+  "required": [
+    "name",
+    "asset_type"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

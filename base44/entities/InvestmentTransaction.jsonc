@@ -1,0 +1,70 @@
+{
+  "name": "InvestmentTransaction",
+  "type": "object",
+  "properties": {
+    "investment_id": {
+      "type": "string",
+      "title": "Investment"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "buy",
+        "sell",
+        "dividend",
+        "distribution",
+        "fee",
+        "transfer",
+        "split",
+        "adjustment"
+      ],
+      "default": "buy",
+      "title": "Type"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Date"
+    },
+    "quantity": {
+      "type": "number",
+      "default": 0,
+      "title": "Quantity"
+    },
+    "price": {
+      "type": "number",
+      "default": 0,
+      "title": "Price / NAV"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Amount"
+    },
+    "fees": {
+      "type": "number",
+      "default": 0,
+      "title": "Fees"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "investment_id",
+    "type",
+    "date"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "Liability",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "loan",
+        "credit_card",
+        "mortgage",
+        "personal_debt",
+        "business_debt",
+        "other"
+      ],
+      "default": "loan",
+      "title": "Type"
+    },
+    "balance": {
+      "type": "number",
+      "default": 0,
+      "title": "Balance"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Date"
+    },
+    "institution": {
+      "type": "string",
+      "title": "Institution"
+    },
+    "interest_rate": {
+      "type": "number",
+      "title": "Interest Rate"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Due Date"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "name",
+    "type",
+    "balance"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

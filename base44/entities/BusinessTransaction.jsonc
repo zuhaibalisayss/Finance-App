@@ -1,0 +1,60 @@
+{
+  "name": "BusinessTransaction",
+  "type": "object",
+  "properties": {
+    "business_id": {
+      "type": "string",
+      "title": "Business"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "capital",
+        "withdrawal",
+        "revenue",
+        "expense"
+      ],
+      "default": "revenue",
+      "title": "Type"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Date"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Amount"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "business_id",
+    "type",
+    "date",
+    "amount"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

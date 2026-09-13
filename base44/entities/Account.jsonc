@@ -1,0 +1,80 @@
+{
+  "name": "Account",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Account Name"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "bank",
+        "savings",
+        "emergency",
+        "cash",
+        "wallet",
+        "other"
+      ],
+      "default": "bank",
+      "title": "Account Type"
+    },
+    "institution": {
+      "type": "string",
+      "title": "Institution / Bank Name"
+    },
+    "nickname": {
+      "type": "string",
+      "title": "Account Identifier / Nickname"
+    },
+    "opening_balance": {
+      "type": "number",
+      "default": 0,
+      "title": "Opening Balance"
+    },
+    "currency": {
+      "type": "string",
+      "default": "PKR",
+      "title": "Currency"
+    },
+    "opening_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Opening Date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "closed",
+        "frozen"
+      ],
+      "default": "active",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    },
+    "masked": {
+      "type": "boolean",
+      "default": false,
+      "title": "Mask Identifier"
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}
