@@ -1,8 +1,6 @@
-import React, { useState, useMemo } from "react";
-import { base44 } from "@/api/base44Client";
-import { useFinanceData } from "@/lib/useFinanceData";
+import React, { useState, useMemo, useEffect } from "react";
+import { entities, audit, INCOME_CATEGORIES, EXPENSE_CATEGORIES } from "@/lib/localStorage";
 import { formatMoney } from "@/lib/finance";
-import { INCOME_CATEGORIES, EXPENSE_CATEGORIES, audit } from "@/lib/store";
 import { SectionHeader, EmptyState, Badge } from "@/components/ui/finance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,36 +34,56 @@ function categoriesFor(type) {
 }
 
 export default function Transactions() {
-  const { data, loading, reload } = useFinanceData();
+  const [transactions, setTransactions] = useState([]);
+  const [accounts, setAccounts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [filterAccount, setFilterAccount] = useState("all");
 
-  const accounts = data?.accounts || [];
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    setLoading(true);
+    try {
+      const [txns, accts] = await Promise.all([
+        entities.Transaction.list("-date", 500),
+        entities.Account.list()
+      ]);
+      setTransactions(txns);
+      setAccounts(accts);
+    } catch (e) {
+      console.error("Failed to load data:", e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const accountName = (id) => accounts.find((a) => a.id === id)?.name || "—";
 
   const filtered = useMemo(() => {
-    if (!data) return [];
     const q = search.toLowerCase();
-    return (data.transactions || []).filter((t) => {
+    return transactions.filter((t) => {
       if (filterType !== "all" && t.type !== filterType) return false;
       if (filterAccount !== "all" && t.account_id !== filterAccount && t.to_account_id !== filterAccount) return false;
       if (!q) return true;
       const hay = `${t.description || ""} ${t.category || ""} ${t.notes || ""} ${t.reference || ""} ${accountName(t.account_id)}`.toLowerCase();
       return hay.includes(q);
     });
-  }, [data, search, filterType, filterAccount]);
+  }, [transactions, search, filterType, filterAccount]);
 
   const openNew = () => { setEditing(null); setDialogOpen(true); };
   const openEdit = (t) => { setEditing(t); setDialogOpen(true); };
 
   const handleDelete = async (t) => {
     if (!confirm("Delete this transaction? This action is deliberate and cannot be undone.")) return;
-    await base44.entities.Transaction.delete(t.id);
+    await entities.Transaction.delete(t.id);
     await audit("transaction_delete", `Deleted transaction: ${t.description || t.type} ${t.amount}`);
-    reload();
+    loadData();
   };
 
   if (loading) return <div className="flex justify-center py-20"><div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin" /></div>;
@@ -149,7 +167,7 @@ export default function Transactions() {
       )}
 
       {dialogOpen && (
-        <TransactionDialog tx={editing} accounts={accounts} onClose={() => setDialogOpen(false)} onSaved={reload} />
+        <TransactionDialog tx={editing} accounts={accounts} onClose={() => setDialogOpen(false)} onSaved={loadData} />
       )}
     </div>
   );
@@ -182,12 +200,11 @@ function TransactionDialog({ tx, accounts, onClose, onSaved }) {
       const payload = { ...form, date: new Date(form.date).toISOString(), amount: amt,
         category: form.category || (form.type === "income" ? "other_income" : form.type === "expense" ? "other" : "general") };
       if (form.type !== "transfer") delete payload.to_account_id;
-      // duplicate guard: same account+amount+type+description within 60s
       if (tx) {
-        await base44.entities.Transaction.update(tx.id, payload);
+        await entities.Transaction.update(tx.id, payload);
         await audit("transaction_edit", `Edited transaction ${payload.type} ${amt}`);
       } else {
-        await base44.entities.Transaction.create(payload);
+        await entities.Transaction.create(payload);
         await audit("transaction_create", `Created transaction ${payload.type} ${amt}`);
       }
       onSaved();
