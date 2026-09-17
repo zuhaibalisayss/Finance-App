@@ -1,11 +1,21 @@
 ```
+# Build artifacts and distributions
+dist-electron/
+dist/
+build/
+
 # Dependencies
 node_modules/
 
-# Build outputs
-dist/
-build/
-target/
+# Electron specific
+electron/
+
+# Compressed/snap files
+*.snap
+
+# OS generated files
+.DS_Store
+Thumbs.db
 
 # Logs
 *.log
@@ -14,50 +24,4 @@ target/
 .env
 .env.local
 *.env.*
-
-# Editor/IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*.tmp
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-venv/
-.venv/
-.env
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Compressed files
-*.zip
-*.gz
-*.tar
-*.tgz
-*.bz2
-*.xz
-*.7z
-*.rar
-*.zst
-*.lz4
-*.lzh
-*.cab
-*.arj
-*.rpm
-*.deb
-*.Z
-*.lz
-*.lzo
 ```
