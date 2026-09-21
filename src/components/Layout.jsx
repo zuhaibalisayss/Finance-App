@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContextLocal";
 import {
   LayoutDashboard, Wallet, ArrowLeftRight, TrendingUp, Building2,
   Landmark, CreditCard, Target, FileText, Scale, Download, DatabaseBackup,
@@ -13,7 +13,6 @@ const NAV = [
   { to: "/cash-savings", label: "Cash & Savings", icon: Wallet },
   { to: "/transactions", label: "Transactions", icon: ArrowLeftRight },
   { to: "/investments", label: "Investment Portfolio", icon: TrendingUp },
-  { to: "/business", label: "Entrepreneurship / Business", icon: Building2 },
   { to: "/assets", label: "Assets", icon: Landmark },
   { to: "/liabilities", label: "Liabilities", icon: CreditCard },
   { to: "/goals", label: "Financial Goals", icon: Target },
@@ -29,6 +28,7 @@ const NAV = [
 export default function Layout() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
     try {
@@ -40,13 +40,13 @@ export default function Layout() {
 
   const handleLogout = async () => {
     await audit("logout", "User logged out");
-    await base44.auth.logout();
+    logout();
   };
 
   const handleLock = () => {
     // Manual lock: sign out to force re-authentication.
     audit("manual_lock", "Application manually locked");
-    base44.auth.logout();
+    logout();
   };
 
   return (
