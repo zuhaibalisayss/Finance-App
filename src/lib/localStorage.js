@@ -473,6 +473,11 @@ export const entities = {
   }
 };
 
+// Get all data helper
+export async function getAllData() {
+  return await loadData();
+}
+
 // Audit logging
 async function addAuditLog(action, details = '') {
   const data = await loadData();

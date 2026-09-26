@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { entities, audit, INCOME_CATEGORIES, EXPENSE_CATEGORIES } from "@/lib/localStorage";
+import { entities, audit } from "@/lib/localStorage";
 import { formatMoney } from "@/lib/finance";
 import { SectionHeader, EmptyState, Badge } from "@/components/ui/finance";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,26 @@ const TX_TYPES = [
   { value: "business_contribution", label: "Business Contribution" },
   { value: "business_withdrawal", label: "Business Withdrawal" },
   { value: "adjustment", label: "Adjustment" },
+];
+
+const INCOME_CATEGORIES = [
+  { value: "salary", label: "Salary" },
+  { value: "freelance", label: "Freelance" },
+  { value: "investments", label: "Investments" },
+  { value: "gifts", label: "Gifts" },
+  { value: "other", label: "Other" }
+];
+
+const EXPENSE_CATEGORIES = [
+  { value: "housing", label: "Housing" },
+  { value: "food", label: "Food" },
+  { value: "transportation", label: "Transportation" },
+  { value: "utilities", label: "Utilities" },
+  { value: "insurance", label: "Insurance" },
+  { value: "healthcare", label: "Healthcare" },
+  { value: "entertainment", label: "Entertainment" },
+  { value: "shopping", label: "Shopping" },
+  { value: "other", label: "Other" }
 ];
 
 function categoriesFor(type) {

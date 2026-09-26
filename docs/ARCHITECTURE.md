@@ -92,9 +92,7 @@ src/
     preload.js           # Preload script
 ```
 
-## Migration Notes
-- Original Base44-dependent code remains in original files
-- New Local versions created for offline functionality
-- UI/UX remains identical
+## Development Notes
+- UI/UX remains identical to original design
 - All business logic preserved
-- Only data source changed (Base44 -> localStorage)
+- Data source uses localStorage + Electron filesystem for persistence
