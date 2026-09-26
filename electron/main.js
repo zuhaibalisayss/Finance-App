@@ -17,7 +17,7 @@ function createWindow() {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     },
-    icon: path.join(__dirname, 'icon.png'),
+    icon: path.join(__dirname, 'icon.ico'),
     titleBarStyle: 'default',
     frame: true,
     backgroundColor: '#ffffff'
