@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { entities } from "@/lib/localStorage";
 import { SectionHeader, StatCard } from "@/components/ui/finance";
-import { Wallet, TrendingUp, CreditCard, Target } from "lucide-react";
+import { Wallet, Target } from "lucide-react";
 
 export default function Dashboard() {
   const [data, setData] = useState({ accounts: [], transactions: [], goals: [], liabilities: [] });

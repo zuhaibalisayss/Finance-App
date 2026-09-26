@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/lib/AuthContextLocal";
 import {
-  LayoutDashboard, Wallet, ArrowLeftRight, TrendingUp, Building2,
+  LayoutDashboard, Wallet, ArrowLeftRight, TrendingUp,
   Landmark, CreditCard, Target, FileText, Scale, Download, DatabaseBackup,
   Settings, Shield, History, LogOut, Lock, Menu, X,
 } from "lucide-react";

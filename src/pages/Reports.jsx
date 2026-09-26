@@ -1,13 +1,13 @@
 import React, { useMemo, useState } from "react";
 import { useFinanceData } from "@/lib/useFinanceData";
-import { formatMoney, formatPct, netWorth, accountsSummary, monthlyFigures, portfolioSummary, businessPortfolioSummary } from "@/lib/finance";
+import { formatMoney, formatPct, netWorth, accountsSummary, portfolioSummary, businessPortfolioSummary } from "@/lib/finance";
 import { getSetting } from "@/lib/store";
 import { SectionHeader } from "@/components/ui/finance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { buildPDFReport, downloadPDF, toCSV, downloadFile, sanitizeForCSV } from "@/lib/exporters";
+import { buildPDFReport, downloadPDF, toCSV, downloadFile } from "@/lib/exporters";
 import { audit } from "@/lib/store";
 import { FileText, Download } from "lucide-react";
 
