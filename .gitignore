@@ -1,4 +1,9 @@
 ```
+# Build artifacts and distributions
+dist-electron/
+dist/
+build/
+
 # Dependencies
 node_modules/
 
